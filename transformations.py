@@ -34,7 +34,4 @@ def idNumberAssignation(idNumber):
 
     #Ciclo "for" que va a aplicar el tema a todos los campos
     ##Esta debo terminarla pero NO es tan importante
-
-
-
 ### ---------------------------------------------------------------------------------------------------------------------

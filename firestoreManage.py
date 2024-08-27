@@ -10,22 +10,43 @@ from firebase_admin import firestore
 
 
 cred = credentials.Certificate("hexa-firestore-secret.json")
-firebase_admin.initialize_app(cred)
+firebase_admin.initialize_app(cred, {
+  'databaseURL': ''
+})
 
 db = firestore.client()
 
 
+### ---------------------------------------------------------------------------------------------------------------------
+#List users function:
+def listUsers():
+  users = read('users')
+  for user in users:
+    print(user.get('display_name'))
+  
+### ---------------------------------------------------------------------------------------------------------------------
+
+#List collections function
+### ---------------------------------------------------------------------------------------------------------------------
+def listCollections():
+  collections = db.collections()
+  
+  for collection in collections:
+    print(collection.id)
+  
+### ---------------------------------------------------------------------------------------------------------------------
+
 #Write function
 ### ---------------------------------------------------------------------------------------------------------------------
-## Tengo que revisar muy bien esta función
+## Tengo que revisar muy bien esta función --- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 def write(collectionName, dataToWrite):
-    doc_ref = db.collection(collectionName).document()
-    return doc_ref.set(dataToWrite)
+  doc_ref = db.collection(collectionName).document()
+  return doc_ref.set(dataToWrite)
 ### ---------------------------------------------------------------------------------------------------------------------
 
 
 ### ---------------------------------------------------------------------------------------------------------------------
-#Read functions:
+#Read function:
 def read(collectionName):
     
   """
@@ -53,21 +74,11 @@ def read(collectionName):
 ### ---------------------------------------------------------------------------------------------------------------------
 
 ### ---------------------------------------------------------------------------------------------------------------------
-#dataFrame creation function:
-def createDataFrame(read): ##Recibe datos como lo es el documento .json encapsulado en una lista lml
-    # Convert JSON dataList to Pandas DataFrame
-    df = pd.DataFrame(read)
+#get times function:
+def getTimes():
+  data = read('incidents')
+  for user in users:
+    print(user.get('horaLlamada, horaRespuesta, horaDespachoHEXA, horaDespachoInstitucion, horaLlegada, horaCierre'))
 
-    # Return DataFrame
-    return df #llamar como una función cualquiera y usar la sintaxis para DataFrames para representar lo que sea mi brother
-### ---------------------------------------------------------------------------------------------------------------------
 
-### ---------------------------------------------------------------------------------------------------------------------
-#JSON creation function:
-def createJSONFile(dataframe):
-    '''
-    #Le entra un DataFrame de pandas, la idea es que este cosito ya deje la vuelta lista para generar las transformaciones
-    '''
-    jsonFile = dataframe.to_json(orient='table')
-    return jsonFile #Bota un String
 ### ---------------------------------------------------------------------------------------------------------------------
