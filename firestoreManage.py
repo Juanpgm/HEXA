@@ -75,10 +75,25 @@ def read(collectionName):
 
 ### ---------------------------------------------------------------------------------------------------------------------
 #get times function:
-def getTimes():
-  data = read('incidents')
-  for user in users:
-    print(user.get('horaLlamada, horaRespuesta, horaDespachoHEXA, horaDespachoInstitucion, horaLlegada, horaCierre'))
+def get_times(incidents):
+    """
+    Imprime los tiempos de un incidente a partir de un diccionario.
 
+    Args:
+        incidents: Una lista de diccionarios, donde cada diccionario representa un incidente.
 
+    Returns:
+        None
+    """
+
+    for incident in incidents:
+        # Obtener los tiempos utilizando una lista de claves
+        times = {"Hora de llamada": incident.get('horaLlamada'), 
+                 "Hora de respuesta": incident.get('horaRespuesta'), 
+                 "Hora de despacho HEXA":incident.get('horaDespachoHEXA'), 
+                 "Hora de despacho institución": incident.get('horaDespachoInstitucion'), 
+                 "Hora de llegada": incident.get('horaLlegada'), 
+                 "Hora de cierre": incident.get('horaCierre')}
+       
+        return times
 ### ---------------------------------------------------------------------------------------------------------------------
